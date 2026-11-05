@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07111f">
+  <meta name="description" content="POCKET WORLD — منصة لتنظيم المحتوى الرقمي والوصول إليه دون اتصال بالإنترنت.">
+  <title>POCKET WORLD | ملف المشروع</title>
+  <style>
+    :root{
+      --bg:#07111f;--bg2:#0a1728;--panel:#0e2034;--panel2:#10263d;
+      --line:rgba(145,190,220,.15);--text:#edf6ff;--muted:#9bb0c5;
+      --cyan:#43d5ff;--blue:#4b8dff;--green:#53dfad;--amber:#ffca72;
+      --shadow:0 18px 55px rgba(0,0,0,.28);--radius:20px;--max:1160px
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:90px}
+    body{margin:0;background:
+      radial-gradient(ellipse at 85% 0%,rgba(28,114,163,.18),transparent 34%),
+      radial-gradient(ellipse at 0% 35%,rgba(54,90,160,.12),transparent 30%),var(--bg);
+      color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;line-height:1.85}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    .container{width:min(var(--max),calc(100% - 36px));margin:auto}
+    .topbar{position:sticky;top:0;z-index:50;background:rgba(7,17,31,.84);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+    .nav{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:11px;font-weight:900;letter-spacing:.4px}
+    .logo{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#153c59,#0c243a);border:1px solid rgba(67,213,255,.35);color:var(--cyan);font-size:22px;box-shadow:0 0 28px rgba(67,213,255,.12)}
+    .brand small{display:block;color:var(--muted);font-size:10px;font-weight:600;letter-spacing:1.4px;line-height:1.2}
+    .navlinks{display:flex;gap:17px;align-items:center;flex-wrap:wrap}
+    .navlinks a{font-size:12px;color:var(--muted);transition:.2s}
+    .navlinks a:hover{color:var(--cyan)}
+    .nav-actions{display:flex;gap:8px;align-items:center}
+    .iconbtn,.menu-btn{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:12px;padding:9px 12px;cursor:pointer}
+    .menu-btn{display:none}
+    .hero{padding:82px 0 58px;position:relative;overflow:hidden}
+    .hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:38px;align-items:center}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--cyan);background:rgba(67,213,255,.08);border:1px solid rgba(67,213,255,.2);padding:6px 12px;border-radius:99px;font-size:12px;font-weight:700}
+    .dot{width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 12px var(--green)}
+    h1{font-size:clamp(42px,6vw,76px);line-height:1.12;margin:22px 0 16px;letter-spacing:-2px}
+    .gradient{background:linear-gradient(90deg,#f2fbff,#43d5ff 55%,#6b9cff);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .lead{color:#b5c7d8;font-size:17px;max-width:650px}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+    .btn{display:inline-flex;justify-content:center;align-items:center;gap:9px;padding:12px 19px;border-radius:13px;font-weight:800;font-size:13px;border:1px solid transparent;cursor:pointer;transition:.2s}
+    .btn-primary{background:linear-gradient(135deg,#35c8f3,#4b8dff);color:#04111e;box-shadow:0 12px 30px rgba(49,174,235,.2)}
+    .btn-primary:hover{transform:translateY(-2px);filter:brightness(1.08)}
+    .btn-ghost{border-color:var(--line);background:rgba(255,255,255,.03);color:var(--text)}
+    .hero-note{font-size:11px;color:var(--muted);margin-top:18px}
+    .visual{position:relative;min-height:390px;border:1px solid rgba(91,174,218,.2);border-radius:30px;background:linear-gradient(145deg,rgba(18,48,73,.95),rgba(8,22,38,.96));box-shadow:var(--shadow);padding:22px;overflow:hidden}
+    .visual:before,.visual:after{content:"";position:absolute;border-radius:50%;filter:blur(2px);pointer-events:none}
+    .visual:before{width:280px;height:280px;background:rgba(47,180,230,.13);top:-110px;left:-80px}
+    .visual:after{width:220px;height:220px;background:rgba(70,117,255,.12);bottom:-110px;right:-50px}
+    .visual-head{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
+    .visual-head strong{font-size:13px}
+    .status{font-size:10px;color:var(--green);background:rgba(83,223,173,.1);padding:5px 9px;border-radius:30px}
+    .pack-card{position:relative;z-index:1;margin-top:24px;padding:18px;border-radius:20px;background:rgba(5,17,30,.72);border:1px solid rgba(140,195,224,.15)}
+    .pack-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}
+    .pack-title strong{font-size:15px}
+    .pack-title span{font-size:10px;color:var(--muted)}
+    .item{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid rgba(140,195,224,.1)}
+    .item-icon{width:36px;height:36px;display:grid;place-items:center;border-radius:12px;background:#102c45;color:var(--cyan);font-size:17px}
+    .item b{display:block;font-size:12px}
+    .item small{display:block;color:var(--muted);font-size:10px}
+    .check{margin-right:auto;color:var(--green)}
+    .visual-foot{position:relative;z-index:1;display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin-top:16px}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
+    .stat{padding:16px;border:1px solid var(--line);background:rgba(255,255,255,.025);border-radius:16px}
+    .stat strong{display:block;color:var(--cyan);font-size:22px}
+    .stat span{font-size:11px;color:var(--muted)}
+    section{padding:65px 0}
+    .section-head{max-width:760px;margin-bottom:28px}
+    .kicker{color:var(--cyan);font-size:11px;font-weight:900;letter-spacing:1.5px}
+    h2{font-size:clamp(27px,4vw,39px);line-height:1.3;margin:8px 0 10px}
+    .section-desc{color:var(--muted);margin:0;font-size:14px}
+    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+    .card{background:linear-gradient(145deg,rgba(16,38,61,.92),rgba(10,25,42,.94));border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:0 10px 35px rgba(0,0,0,.12)}
+    .card h3{margin:9px 0 7px;font-size:16px}
+    .card p{margin:0;color:var(--muted);font-size:13px}
+    .feature-icon{width:43px;height:43px;border-radius:14px;background:rgba(67,213,255,.1);border:1px solid rgba(67,213,255,.16);display:grid;place-items:center;color:var(--cyan);font-size:20px}
+    .number{font-size:30px;font-weight:900;color:rgba(67,213,255,.85)}
+    .soft{color:var(--muted)}
+    .callout{border:1px solid rgba(67,213,255,.23);background:linear-gradient(110deg,rgba(67,213,255,.08),rgba(75,141,255,.04));padding:19px 21px;border-radius:17px;color:#c9e9f7}
+    .callout strong{color:#fff}
+    .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+    .step{padding:18px 15px;background:var(--panel);border:1px solid var(--line);border-radius:16px;position:relative}
+    .step .n{font-size:11px;color:var(--cyan);font-weight:900}
+    .step h3{font-size:14px;margin:8px 0}
+    .step p{font-size:11px;color:var(--muted);margin:0}
+    .pill{display:inline-block;border:1px solid var(--line);padding:4px 9px;border-radius:30px;color:var(--muted);font-size:10px;margin:3px}
+    .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px}
+    table{width:100%;border-collapse:collapse;min-width:650px;background:rgba(12,30,49,.7);font-size:12px}
+    th,td{padding:13px 15px;text-align:right;border-bottom:1px solid var(--line)}
+    th{background:#112b43;color:#dff5ff;font-size:11px}
+    td{color:#c0d0df}
+    tr:last-child td{border-bottom:0}
+    .good{color:var(--green);font-weight:800}
+    .warn{color:var(--amber)}
+    .price-card{position:relative}
+    .price{font-size:32px;font-weight:900;color:var(--cyan);margin:10px 0}
+    .price small{font-size:11px;color:var(--muted);font-weight:500}
+    ul.clean{list-style:none;margin:13px 0 0;padding:0}
+    ul.clean li{padding:6px 0;color:#c0d0df;font-size:12px}
+    ul.clean li:before{content:"✓";color:var(--green);font-weight:900;margin-left:9px}
+    .bar{height:9px;background:#071523;border-radius:20px;overflow:hidden;margin:9px 0 14px}
+    .bar span{display:block;height:100%;background:linear-gradient(90deg,#39c9ee,#4e8dff);border-radius:20px}
+    .budget-row{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;font-size:12px;color:#c0d0df}
+    .budget-row b{color:#fff}
+    .risk{border-right:3px solid var(--amber);padding:2px 13px;margin:13px 0}
+    .risk strong{font-size:13px}
+    .risk p{font-size:11px;color:var(--muted);margin:3px 0}
+    .timeline{border-right:2px solid rgba(67,213,255,.3);margin-right:8px;padding-right:22px}
+    .week{position:relative;padding:0 0 22px}
+    .week:before{content:"";position:absolute;right:-29px;top:8px;width:11px;height:11px;border-radius:50%;background:var(--cyan);box-shadow:0 0 0 5px rgba(67,213,255,.1)}
+    .week h3{font-size:14px;margin:0 0 5px}
+    .week p{font-size:12px;color:var(--muted);margin:0}
+    .team-role{display:flex;gap:12px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--line)}
+    .team-role:last-child{border:0}
+    .team-role b{display:block;font-size:13px}
+    .team-role small{color:var(--muted);font-size:11px}
+    .faq details{border:1px solid var(--line);border-radius:13px;background:rgba(14,32,52,.7);padding:14px 16px;margin:9px 0}
+    .faq summary{cursor:pointer;font-size:13px;font-weight:800}
+    .faq p{color:var(--muted);font-size:12px;margin-bottom:0}
+    footer{padding:35px 0;border-top:1px solid var(--line);background:rgba(3,10,18,.35)}
+    .footer-inner{display:flex;justify-content:space-between;gap:15px;align-items:center;flex-wrap:wrap}
+    .footer-inner p{color:var(--muted);font-size:11px;margin:4px 0}
+    .disclaimer{font-size:10px;color:#8298ad}
+    .reveal{opacity:0;transform:translateY(15px);transition:.55s ease}
+    .reveal.visible{opacity:1;transform:none}
+    .mobile-menu{display:none}
+    @media(max-width:900px){
+      .navlinks{display:none}.menu-btn{display:block}.mobile-menu.open{display:grid;gap:10px;padding:0 0 15px}
+      .mobile-menu a{color:var(--muted);font-size:13px;padding:7px}
+      .hero-grid{grid-template-columns:1fr}.visual{min-height:350px}
+      .grid-4{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:600px){
+      .container{width:min(100% - 26px,var(--max))}.hero{padding:52px 0 35px}
+      h1{letter-spacing:-1px}.lead{font-size:14px}.visual{padding:15px;min-height:330px}
+      section{padding:48px 0}.grid-2,.grid-3{grid-template-columns:1fr}
+      .grid-4{grid-template-columns:repeat(2,1fr)}.stats{gap:7px}
+      .stat{padding:11px}.stat strong{font-size:18px}.stat span{font-size:9px}
+      .steps{grid-template-columns:1fr}.card{padding:18px}
+    }
+  </style>
+</head>
+<body>
+<header class="topbar">
+  <div class="container">
+    <nav class="nav">
+      <a class="brand" href="#home" aria-label="POCKET WORLD">
+        <span class="logo">◈</span>
+        <span>POCKET WORLD<small>OFFLINE CONTENT PLATFORM</small></span>
+      </a>
+      <div class="navlinks">
+        <a href="#idea">الفكرة</a><a href="#how">طريقة العمل</a><a href="#market">السوق</a>
+        <a href="#business">الربح</a><a href="#mvp">التنفيذ</a><a href="#budget">الميزانية</a>
+      </div>
+      <div class="nav-actions">
+        <a class="iconbtn" href="#roadmap">خطة المشروع ↙</a>
+        <button class="menu-btn" id="menuBtn" aria-label="فتح القائمة">☰</button>
+      </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#idea">الفكرة</a><a href="#how">طريقة العمل</a><a href="#market">السوق والمنافسون</a>
+      <a href="#advantage">الميزة التنافسية</a><a href="#business">الربح والاستدامة</a>
+      <a href="#mvp">النسخة الأولى</a><a href="#budget">الميزانية</a><a href="#roadmap">خطة التنفيذ</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="home">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow"><span class="dot"></span> ملف المشروع • النسخة التصورية الأولى</span>
+        <h1><span class="gradient">عالمك الرقمي،</span><br>حتى بلا إنترنت.</h1>
+        <p class="lead">POCKET WORLD منصة ويب تساعد المستخدم على اختيار المحتوى الذي يحتاجه، وتجميعه في حزم رقمية محفوظة على جهازه، ليتمكن من الوصول إليه والبحث فيه عند انقطاع الاتصال.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#idea">اكتشف المشروع <span>←</span></a>
+          <a class="btn btn-ghost" href="#business">كيف يحقق الدخل؟</a>
+        </div>
+        <p class="hero-note">تصور مشروع قابل للتطوير — وليس خدمة جاهزة أو اتصال إنترنت يمكن تخزينه.</p>
+        <div class="stats">
+          <div class="stat"><strong>Web / PWA</strong><span>المنصة المقترحة</span></div>
+          <div class="stat"><strong>Manual</strong><span>طريقة اختيار المحتوى</span></div>
+          <div class="stat"><strong>3,500 DH</strong><span>ميزانية النموذج الأولي</span></div>
+        </div>
+      </div>
+      <div class="visual" aria-label="تصور توضيحي لحزمة محتوى محفوظة">
+        <div class="visual-head"><strong>POCKET WORLD / MY PACK</strong><span class="status">● محفوظ على الجهاز</span></div>
+        <div class="pack-card">
+          <div class="pack-title"><strong>حزمة التعلم الخاصة بي</strong><span>4 عناصر</span></div>
+          <div class="item"><span class="item-icon">▤</span><div><b>مقال: أساسيات الأمن الرقمي</b><small>مقال ويب محفوظ</small></div><span class="check">✓</span></div>
+          <div class="item"><span class="item-icon">▧</span><div><b>دليل PDF</b><small>ملف محلي</small></div><span class="check">✓</span></div>
+          <div class="item"><span class="item-icon">✎</span><div><b>ملاحظاتي</b><small>نص شخصي</small></div><span class="check">✓</span></div>
+          <div class="item"><span class="item-icon">⌕</span><div><b>بحث داخل الحزمة</b><small>الوصول للمعلومة بسرعة</small></div><span class="check">✓</span></div>
+        </div>
+        <div class="visual-foot"><span>وضع الاستعمال: دون اتصال</span><span>تصور واجهة فقط</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="idea">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker">01 / THE IDEA</span><h2>المشكلة التي نريد حلها</h2>
+        <p class="section-desc">المستخدم يعتمد على الإنترنت للوصول إلى المعلومات، لكن الاتصال قد ينقطع أو يصبح مكلفاً أو غير متاح أثناء التنقل. كما أن المحتوى الذي يحتاجه قد يكون موزعاً بين روابط وملفات وملاحظات مختلفة.</p>
+      </div>
+      <div class="grid-3">
+        <article class="card reveal"><div class="feature-icon">⌁</div><h3>انقطاع الاتصال</h3><p>قد يحتاج المستخدم إلى معلومة في مكان لا تتوفر فيه شبكة مستقرة.</p></article>
+        <article class="card reveal"><div class="feature-icon">▤</div><h3>تشتت المحتوى</h3><p>المقالات والوثائق والملاحظات محفوظة في أماكن وتطبيقات متعددة.</p></article>
+        <article class="card reveal"><div class="feature-icon">⌕</div><h3>صعوبة الوصول</h3><p>قد يضيع الوقت في البحث عن الملف أو الصفحة التي سبق حفظها.</p></article>
+      </div>
+      <div class="callout" style="margin-top:18px"><strong>تنبيه تقني:</strong> لا يمكن تخزين اتصال الإنترنت نفسه. POCKET WORLD يحفظ نسخاً من محتوى مختار مسبقاً، وليس الإنترنت كاملاً ولا المواقع الحية.</div>
+    </div>
+  </section>
+
+  <section id="solution">
+    <div class="container">
+      <div class="section-head reveal"><span class="kicker">02 / THE SOLUTION</span><h2>حل واحد لتنظيم المحتوى المحفوظ</h2><p class="section-desc">بدلاً من حفظ كل نوع من المحتوى في مكان مختلف، ينشئ المستخدم حزمة واحدة تضم الموارد التي اختارها بنفسه.</p></div>
+      <div class="grid-4">
+        <article class="card reveal"><div class="feature-icon">🌐</div><h3>مقالات الويب</h3><p>حفظ نص المقالات المدعومة من روابط الويب.</p></article>
+        <article class="card reveal"><div class="feature-icon">▧</div><h3>ملفات PDF</h3><p>رفع الوثائق وفتحها من التخزين المحلي.</p></article>
+        <article class="card reveal"><div class="feature-icon">✎</div><h3>ملاحظات شخصية</h3><p>كتابة نصوص قصيرة وحفظها ضمن الحزمة.</p></article>
+        <article class="card reveal"><div class="feature-icon">⌕</div><h3>بحث موحد</h3><p>البحث في المحتوى الذي تم حفظه داخل المنصة.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="container">
+      <div class="section-head reveal"><span class="kicker">03 / USER JOURNEY</span><h2>كيف يستعمل المستخدم POCKET WORLD؟</h2><p class="section-desc">طريقة التحضير يدوية: المستخدم هو من يقرر ماذا يحفظ ومتى يحفظه.</p></div>
+      <div class="steps">
+        <div class="step reveal"><span class="n">STEP 01</span><h3>إنشاء حزمة</h3><p>يسميها مثلاً: حزمة السفر أو حزمة الدراسة.</p></div>
+        <div class="step reveal"><span class="n">STEP 02</span><h3>اختيار المحتوى</h3><p>يضيف رابط مقال أو PDF أو نصاً أو ملاحظة.</p></div>
+        <div class="step reveal"><span class="n">STEP 03</span><h3>الحفظ</h3><p>يحفظ النظام نسخة محلية من المحتوى المدعوم.</p></div>
+        <div class="step reveal"><span class="n">STEP 04</span><h3>قطع الاتصال</h3><p>يفتح المستخدم وضع الطيران لاختبار الاستعمال.</p></div>
+        <div class="step reveal"><span class="n">STEP 05</span><h3>الوصول والبحث</h3><p>يقرأ المحتوى المحفوظ ويبحث فيه دون اتصال.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="market">
+    <div class="container">
+      <div class="section-head reveal"><span class="kicker">04 / TARGET MARKET</span><h2>من يمكن أن يستعمله؟</h2><p class="section-desc">الرؤية طويلة المدى هي خدمة جمهور واسع، لكن البداية التجارية الأفضل تكون مع فئة أولى محددة لاختبار الحاجة الحقيقية.</p></div>
+      <div class="grid-2">
+        <article class="card reveal"><span class="pill">الفئة الأولى المقترحة</span><h3>الطلاب والمتعلمون</h3><p>يحتاجون إلى جمع الدروس والمقالات والوثائق في حزم يمكن الرجوع إليها أثناء التنقل أو عند ضعف الاتصال.</p></article>
+        <article class="card reveal"><span class="pill">فئات توسع مستقبلية</span><h3>المسافرون والمهنيون</h3><p>يمكن أن يستفيد المسافر من أدلة ووثائق محفوظة، والمهني من ملفات ومراجع يحتاجها خارج المكتب.</p></article>
+      </div>
+      <div class="callout" style="margin-top:18px">الجمهور المستهدف النهائي واسع، لكن اختبار النسخة الأولى مع الطلاب أو الأشخاص الذين يعانون من ضعف الاتصال سيعطينا ملاحظات أكثر دقة.</div>
+    </div>
+  </section>
+
+  <section id="competitors">
+    <div class="container">
+      <div class="section-head reveal"><span class="kicker">05 / COMPETITOR ANALYSIS</span><h2>المنافسون والبدائل</h2><p class="section-desc">هذه مقارنة أولية على مستوى نوع الخدمة. يجب مراجعة الخصائص والأسعار الحالية مباشرة قبل أي قرار تجاري نهائي.</p></div>
+      <div class="table-wrap reveal">
+        <table>
+          <thead><tr><th>الخدمة</th><th>مجال التركيز</th><th>ما الذي نتعلمه منها؟</th><th>فرصة POCKET WORLD</th></tr></thead>
+          <tbody>
+            <tr><td><b>Instapaper</b></td><td>حفظ المقالات والقراءة لاحقاً</td><td>تجربة قراءة بسيطة</td><td>تنظيم أنواع متعددة من المحتوى في Pack</td></tr>
+            <tr><td><b>Readwise Reader</b></td><td>القراءة وتنظيم المراجع</td><td>إدارة محتوى القراءة</td><td>التركيز على التحضير اليدوي والاستعمال دون اتصال</td></tr>
+            <tr><td><b>Wallabag</b></td><td>حفظ صفحات الويب</td><td>حل مفتوح المصدر لحفظ المقالات</td><td>واجهة مبسطة تجمع المقالات والملفات والملاحظات</td></tr>
+            <tr><td><b>مدير الملفات والمتصفح</b></td><td>حفظ ملفات وروابط بشكل منفصل</td><td>بديل مجاني ومتاح</td><td>تجربة موحدة وحزم منظمة وبحث واحد</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="disclaimer" style="margin-top:12px">لا ندعي أن الخصائص المذكورة غائبة كلياً عن المنافسين. التميز المقترح فرضية يجب اختبارها بمقارنة عملية وتجارب مستخدمين.</p>
+    </div>
+  </section>
+
+  <section id="advantage">
+    <div class="container">
+      <div class="section-head reveal"><span class="kicker">06 / COMPETITIVE ADVANTAGE</span><h2>ما الذي قد يجعلنا مختلفين؟</h2><p class="section-desc">الميزة التنافسية ليست مجرد إضافة خصائص كثيرة؛ بل تقديم تجربة واضحة وسهلة لمشكلة محددة.</p></div>
+      <div class="grid-3">
+        <article class="card reveal"><div class="number">01</div><h3>حزمة واحدة</h3><p>جمع المقالات والوثائق والملاحظات في مساحة منظمة بدل التنقل بين أدوات منفصلة.</p></article>
+        <article class="card reveal"><div class="number">02</div><h3>اختيار يدوي واضح</h3><p>المستخدم يتحكم في المحتوى الذي يريد حفظه، دون تنزيل تلقائي غير مرغوب.</p></article>
+        <article class="card reveal"><div class="number">03</div><h3>Offline-first</h3><p>تصميم التجربة حول الوصول للمحتوى المحفوظ حتى عند انقطاع الشبكة.</p></article>
+      </div>
+      <div class="callout" style="margin-top:18px"><strong>فرضية نحتاج إثباتها:</strong> هل يفضل المستخدمون حزمة موحدة بسيطة على استعمال عدة أدوات منفصلة؟ سنقيس ذلك في اختبارات النسخة التجريبية.</div>
+    </div>
+  </section>
+
+  <section id="business">
+    <div class="container">
+      <div class="section-head reveal"><span class="kicker">07 / BUSINESS MODEL</span><h2>كيف يمكن أن يحقق المشروع الربح؟</h2><p class="section-desc">النموذج المقترح هو Freemium: نسخة مجانية مفيدة، مع اشتراك اختياري لخصائص متقدمة إذا أثبت المستخدمون استعدادهم للدفع.</p></div>
+      <div class="grid-2">
+        <article class="card price-card reveal">
+          <span class="pill">لجذب المستخدمين</span><h3>الخطة المجانية</h3><div class="price">0 DH <small>/ مجاناً</small></div>
+          <ul class="clean"><li>إنشاء حزم أساسية</li><li>حفظ النصوص والملاحظات</li><li>رفع ملفات PDF ضمن حدود التخزين</li><li>البحث في المحتوى المحفوظ</li></ul>
+        </article>
+        <article class="card price-card reveal" style="border-color:rgba(67,213,255,.35)">
+          <span class="pill">اقتراح قابل للاختبار</span><h3>POCKET WORLD PLUS</h3><div class="price">29 DH <small>/ شهرياً — سعر افتراضي</small></div>
+          <ul class="clean"><li>حدود أعلى للحزم والتخزين</li><li>تصدير واستيراد الحزم</li><li>تنظيم وأدوات متقدمة</li><li>تلخيص اختياري بالذكاء الاصطناعي مستقبلاً</li></ul>
+        </article>
+      </div>
+      <div class="card reveal" style="margin-top:18px">
+        <h3>مثال حسابي توضيحي للدخل الشهري</h3>
+        <p>إذا كان لدينا 1,000 مستخدم، واشترك 5% منهم في الخطة المدفوعة بسعر 29 درهماً:</p>
+        <div class="grid-3" style="margin-top:15px">
+          <div><div class="number">1,000</div><span class="soft">مستخدم افتراضي</span></div>
+          <div><div class="number">50</div><span class="soft">مشترك مدفوع</span></div>
+          <div><div class="number">1,450 DH</div><span class="soft">دخل إجمالي شهري افتراضي</span></div>
+        </div>
+        <p class="disclaimer">هذا مثال رياضي وليس توقع مبيعات أو ربح مضمون. لا يشمل تكاليف التشغيل أو الضرائب أو رسوم الدفع أو اكتساب العملاء.</p>
+      </div>
+      <div class="callout" style="margin-top:18px"><strong>مصادر دخل مستقبلية محتملة:</strong> اشتراكات الأفراد، خطط للمدارس أو المؤسسات، وخدمات تخزين أو تنظيم إضافية. لا نعتمد عليها قبل إثبات الطلب.</div>
+    </div>
+  </section>
+
+  <section id="sustainability">
+    <div class="container">
+      <div class="section-head reveal"><span class="kicker">08 / SUSTAINABILITY</span><h2>الاستدامة واستمرار المشروع</h2><p class="section-desc">نريد بناء خدمة يمكن تطويرها دون أن تصبح تكاليف تشغيلها أكبر من قيمتها للمستخدم.</p></div>
+      <div class="grid-4">
+        <article class="card reveal"><div class="feature-icon">◈</div><h3>مالية</h3><p>اشتراكات اختيارية بعد التأكد من وجود قيمة تستحق الدفع.</p></article>
+        <article class="card reveal"><div class="feature-icon">⚙</div><h3>تقنية</h3><p>الاعتماد على تقنيات ويب ومعايير مفتوحة وتقليل الخدمات المكلفة.</p></article>
+        <article class="card reveal"><div class="feature-icon">♻</div><h3>تشغيلية</h3><p>تخزين المحتوى على جهاز المستخدم لتقليل الحاجة إلى تخزين سحابي دائم.</p></article>
+        <article class="card reveal"><div class="feature-icon">↗</div><h3>تطويرية</h3><p>إضافة الخصائص وفق ملاحظات المستخدمين ونتائج الاختبار.</p></article>
+      </div>
+      <p class="disclaimer" style="margin-top:13px">التخزين المحلي يقلل بعض تكاليف الخادم، لكنه لا يلغي تكاليف النطاق أو المعالجة أو الدعم أو التحديثات. وقد تختلف سعة التخزين وسياسات حذف البيانات حسب الجهاز والمتصفح.</p>
+    </div>
+  </section>
+
+  <section id="mvp">
+    <div class="container">
+      <div class="section-head reveal"><span class="kicker">09 / MVP & TECHNOLOGY</span><h2>ما الذي سنبنيه أولاً؟</h2><p class="section-desc">MVP هي أصغر نسخة عملية تسمح لنا باختبار الفكرة مع مستخدمين حقيقيين، وليست النسخة النهائية بكل المزايا.</p></div>
+      <div class="grid-2">
+        <article class="card reveal">
+          <h3>خصائص النسخة الأولى</h3>
+          <ul class="clean"><li>إنشاء Offline Pack وتسميته</li><li>إضافة نصوص وملاحظات</li><li>رفع وعرض ملفات PDF</li><li>حفظ مقالات من روابط مدعومة</li><li>البحث داخل المحفوظات</li><li>فتح الواجهة والمحتوى المحفوظ دون اتصال</li><li>حذف المحتوى وإدارة التخزين</li></ul>
+        </article>
+        <article class="card reveal">
+          <h3>ما سنؤجله</h3>
+          <ul class="clean"><li>مساعد ذكاء اصطناعي متقدم</li><li>تحميل الفيديوهات من مواقع مختلفة</li><li>خرائط عالمية كاملة دون اتصال</li><li>مزامنة الحسابات بين الأجهزة</li><li>تطبيق Android مستقل</li><li>تخزين غير محدود</li></ul>
+        </article>
+      </div>
+      <div class="section-head" style="margin-top:30px"><h3>البنية التقنية المقترحة</h3><p class="section-desc">اختيارات أولية مناسبة لنموذج ويب خفيف.</p></div>
+      <div class="grid-3">
+        <article class="card reveal"><h3>HTML / CSS / JavaScript</h3><p>بناء واجهة الموقع والتفاعلات الأساسية المتوافقة مع الهاتف والحاسوب.</p></article>
+        <article class="card reveal"><h3>Service Worker + Cache API</h3><p>تخزين ملفات واجهة التطبيق حتى يمكن فتحها لاحقاً دون اتصال.</p></article>
+        <article class="card reveal"><h3>IndexedDB</h3><p>تخزين النصوص والبيانات والملفات محلياً داخل المتصفح.</p></article>
+        <article class="card reveal"><h3>PDF.js</h3><p>عرض ملفات PDF داخل واجهة المنصة.</p></article>
+        <article class="card reveal"><h3>Readability</h3><p>استخراج محتوى المقالات من بعض صفحات الويب المدعومة.</p></article>
+        <article class="card reveal"><h3>Cloudflare Worker</h3><p>خدمة اختيارية لمعالجة روابط المقالات مع ضوابط أمنية وحدود للطلبات.</p></article>
+      </div>
+      <div class="callout" style="margin-top:18px"><strong>حدود مهمة:</strong> بعض المواقع تمنع استخراج محتواها أو تتطلب تسجيل الدخول. لذلك سندعم لصق النص ورفع PDF كبدائل. ولا يمكن فتح محتوى جديد من الإنترنت أثناء انقطاع الاتصال.</div>
+    </div>
+  </section>
+
+  <section id="budget">
+    <div class="container">
+      <div class="section-head reveal"><span class="kicker">10 / BUDGET PLAN</span><h2>توزيع ميزانية 3,500 درهم</h2><p class="section-desc">تقدير تخطيطي لنموذج أولي ينفذه الفريق بنفسه ويستعمل أدوات مجانية قدر الإمكان. الأرقام تحتاج عروض أسعار فعلية قبل الشراء.</p></div>
+      <div class="grid-2">
+        <div class="card reveal">
+          <div class="budget-row"><span>مساعدة تقنية ومراجعة الكود</span><b>1,200 DH</b></div><div class="bar"><span style="width:34.3%"></span></div>
+          <div class="budget-row"><span>احتياط لإصلاح الأخطاء</span><b>1,000 DH</b></div><div class="bar"><span style="width:28.6%"></span></div>
+          <div class="budget-row"><span>أدوات وتجهيزات الاختبار والعرض</span><b>350 DH</b></div><div class="bar"><span style="width:10%"></span></div>
+          <div class="budget-row"><span>التصميم والهوية البصرية</span><b>250 DH</b></div><div class="bar"><span style="width:7.15%"></span></div>
+          <div class="budget-row"><span>الإنترنت وتجارب المستخدمين</span><b>250 DH</b></div><div class="bar"><span style="width:7.15%"></span></div>
+          <div class="budget-row"><span>النطاق Domain</span><b>150 DH</b></div><div class="bar"><span style="width:4.3%"></span></div>
+          <div class="budget-row"><span>تجهيز العرض والملصقات</span><b>300 DH</b></div><div class="bar"><span style="width:8.6%"></span></div>
+          <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
+          <div class="budget-row"><b>المجموع</b><b class="good">3,500 DH</b></div>
+        </div>
+        <div class="card reveal">
+          <h3>كيف نحافظ على الميزانية؟</h3>
+          <ul class="clean"><li>نبرمج النسخة الأساسية بأنفسنا.</li><li>نستعمل GitHub Pages لاستضافة نموذج الشرح.</li><li>نبدأ بخدمات مجانية ضمن حدودها.</li><li>لا نشتري اشتراكات AI قبل الحاجة.</li><li>لا ندفع مقابل تطبيق هاتف مستقل في البداية.</li><li>لا نصرف الاحتياط إلا عند ظهور حاجة حقيقية.</li></ul>
+          <p class="disclaimer">الاستضافة المجانية للموقع التعريفي لا تعني أن كل خدمات المنتج المستقبلي ستكون مجانية أو بلا حدود.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="roadmap">
+    <div class="container">
+      <div class="section-head reveal"><span class="kicker">11 / EXECUTION ROADMAP</span><h2>خطة بناء واختبار خلال خمسة أسابيع</h2><p class="section-desc">كل أسبوع له نتيجة قابلة للفحص قبل الانتقال إلى المرحلة التالية.</p></div>
+      <div class="grid-2">
+        <div class="card reveal">
+          <div class="timeline">
+            <div class="week"><h3>الأسبوع 1 — التصميم والهيكل</h3><p>تصميم الصفحات، إعداد المشروع، وبناء التنقل والواجهة المتجاوبة.</p></div>
+            <div class="week"><h3>الأسبوع 2 — العمل دون اتصال</h3><p>إعداد PWA وService Worker وتخزين ملفات الواجهة.</p></div>
+            <div class="week"><h3>الأسبوع 3 — حفظ المحتوى</h3><p>إضافة النصوص والملاحظات ورفع ملفات PDF وحفظها محلياً.</p></div>
+            <div class="week"><h3>الأسبوع 4 — الحزم والبحث</h3><p>إنشاء الحزم، تنظيم العناصر، البحث والحذف وإدارة التخزين.</p></div>
+            <div class="week"><h3>الأسبوع 5 — الاختبار والتحسين</h3><p>اختبارات الأجهزة ووضع الطيران، إصلاح الأخطاء وتجهيز النسخة التجريبية.</p></div>
+          </div>
+        </div>
+        <div class="card reveal">
+          <h3>اختبارات قبول النسخة الأولى</h3>
+          <ul class="clean">
+            <li>فتح واجهة التطبيق أثناء الاتصال.</li>
+            <li>حفظ نص وملاحظة داخل حزمة.</li>
+            <li>رفع ملف PDF وفتحه.</li>
+            <li>قطع الإنترنت وفتح التطبيق من جديد.</li>
+            <li>قراءة المحتوى المحفوظ في وضع الطيران.</li>
+            <li>البحث عن كلمة داخل المحتوى المحفوظ.</li>
+            <li>حذف عنصر والتأكد من اختفائه.</li>
+            <li>تجربة هاتفين ومتصفحين مختلفين قدر الإمكان.</li>
+          </ul>
+          <div class="callout" style="margin-top:15px">معيار النجاح: يستطيع المستخدم فتح الواجهة والوصول إلى المحتوى الذي حفظه مسبقاً والبحث فيه دون اتصال، على الأجهزة التي اجتازت الاختبار.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="team">
+    <div class="container">
+      <div class="section-head reveal"><span class="kicker">12 / TEAM & RESPONSIBILITIES</span><h2>توزيع الأدوار داخل الفريق</h2><p class="section-desc">يمكن للشخص الواحد تولي أكثر من دور حسب عدد أعضاء الفريق ومهاراتهم.</p></div>
+      <div class="grid-2">
+        <div class="card reveal">
+          <div class="team-role"><span class="feature-icon">⌘</span><div><b>مسؤول المنتج والتنسيق</b><small>يتابع الخطة، يحدد الأولويات، ويتأكد من أن الخصائص تحل حاجة المستخدم.</small></div></div>
+          <div class="team-role"><span class="feature-icon">⌨</span><div><b>مسؤول التطوير</b><small>يبني الواجهة والتخزين المحلي ووظائف الحزم والبحث.</small></div></div>
+          <div class="team-role"><span class="feature-icon">◉</span><div><b>مسؤول التصميم وتجربة المستخدم</b><small>يرسم الواجهات ويجرب سهولة الاستخدام على الهاتف.</small></div></div>
+          <div class="team-role"><span class="feature-icon">▥</span><div><b>مسؤول السوق والمالية</b><small>يدرس المنافسين، يجمع ملاحظات المستخدمين، ويتابع الميزانية.</small></div></div>
+          <div class="team-role"><span class="feature-icon">✓</span><div><b>مسؤول الاختبار والتوثيق</b><small>ينفذ اختبارات القبول ويسجل الأخطاء والنتائج.</small></div></div>
+        </div>
+        <div class="card reveal">
+          <h3>مؤشرات نقيس بها النجاح</h3>
+          <ul class="clean">
+            <li>عدد الأشخاص الذين جربوا النسخة.</li>
+            <li>نسبة من تمكنوا من حفظ محتوى دون مساعدة.</li>
+            <li>نسبة نجاح فتح المحتوى في وضع الطيران.</li>
+            <li>الوقت اللازم لإنشاء أول Offline Pack.</li>
+            <li>عدد الأخطاء التي ظهرت أثناء الاختبار.</li>
+            <li>مدى استعداد المستخدمين لاستعمال المنتج مجدداً.</li>
+          </ul>
+          <p class="disclaimer">لا نضع أرقام نجاح من عندنا قبل إجراء الاختبارات؛ نسجل النتائج الفعلية ثم نقرر ما يجب تحسينه.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="risks">
+    <div class="container">
+      <div class="section-head reveal"><span class="kicker">13 / RISKS & LIMITATIONS</span><h2>المخاطر والمشاكل المحتملة</h2><p class="section-desc">المشروع القوي لا يخفي الصعوبات؛ يحددها ويشرح طريقة التعامل معها.</p></div>
+      <div class="card reveal">
+        <div class="risk"><strong>الموقع لا يسمح باستخراج المقال</strong><p>الحل: دعم لصق النص ورفع PDF، وإظهار رسالة واضحة عندما لا يكون الرابط مدعوماً.</p></div>
+        <div class="risk"><strong>امتلاء مساحة الجهاز أو حذف بيانات المتصفح</strong><p>الحل: عرض المساحة المستعملة، وضع حدود منطقية، وإضافة تصدير احتياطي في مرحلة لاحقة.</p></div>
+        <div class="risk"><strong>اختلاف سلوك المتصفحات</strong><p>الحل: تحديد المتصفحات المدعومة واختبارها قبل الإعلان عن التوافق.</p></div>
+        <div class="risk"><strong>حقوق النشر والمحتوى المحمي</strong><p>الحل: احترام شروط المواقع وحقوق أصحاب المحتوى، وعدم تجاوز تسجيل الدخول أو الحماية التقنية.</p></div>
+        <div class="risk"><strong>ارتفاع تكاليف الخدمات مستقبلاً</strong><p>الحل: إبقاء الذكاء الاصطناعي اختيارياً، ومراقبة الاستعمال، ووضع حدود للخدمات السحابية.</p></div>
+        <div class="risk"><strong>عدم استعداد المستخدم للدفع</strong><p>الحل: اختبار الطلب أولاً، وتحسين القيمة قبل إطلاق اشتراك مدفوع.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="future">
+    <div class="container">
+      <div class="section-head reveal"><span class="kicker">14 / FUTURE VISION</span><h2>الرؤية المستقبلية</h2><p class="section-desc">بعد نجاح النسخة الأولى، يمكن تطوير المشروع وفق ما يطلبه المستخدمون وما تسمح به الميزانية.</p></div>
+      <div class="grid-3">
+        <article class="card reveal"><span class="pill">مرحلة 2</span><h3>تصدير الحزم</h3><p>إمكانية نقل الحزمة أو إنشاء نسخة احتياطية قابلة للاستيراد.</p></article>
+        <article class="card reveal"><span class="pill">مرحلة 3</span><h3>مساعد معرفة محلي</h3><p>البحث الذكي أو الإجابة عن أسئلة حول المحتوى المحفوظ، بعد دراسة الخصوصية والتكلفة.</p></article>
+        <article class="card reveal"><span class="pill">مرحلة 4</span><h3>مزامنة اختيارية</h3><p>مزامنة الحزم بين الأجهزة بموافقة المستخدم، مع حماية البيانات.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="container">
+      <div class="section-head reveal"><span class="kicker">15 / QUICK ANSWERS</span><h2>أسئلة متوقعة</h2></div>
+      <div class="faq">
+        <details><summary>هل POCKET WORLD يخزن الإنترنت؟</summary><p>لا. هو يحفظ محتوى محدداً مسبقاً على الجهاز، مثل نصوص المقالات وملفات PDF والملاحظات. لا يخزن الاتصال ولا يتيح تصفح مواقع جديدة دون شبكة.</p></details>
+        <details><summary>هل يمكن حفظ أي رابط؟</summary><p>لا نضمن ذلك. بعض المواقع تمنع استخراج المحتوى أو تتطلب تسجيل الدخول. لهذا نوفر بدائل مثل لصق النص ورفع PDF.</p></details>
+        <details><summary>هل المشروع جاهز للاستعمال الآن؟</summary><p>هذا الموقع ملف تعريفي يشرح الفكرة وخطة العمل فقط. المنتج الفعلي يحتاج إلى البرمجة والاختبار وفق المراحل الموضحة.</p></details>
+        <details><summary>لماذا قد يدفع المستخدم مقابل PLUS؟</summary><p>فقط إذا قدمت الخصائص المدفوعة قيمة واضحة مثل حدود أعلى، تصدير الحزم، أو أدوات تنظيم متقدمة. السعر المقترح يحتاج اختباراً مع العملاء.</p></details>
+        <details><summary>ما أول دليل على نجاح الفكرة؟</summary><p>أن يتمكن أشخاص من الفئة المستهدفة من إنشاء حزمة بأنفسهم، ثم فتح محتواها والبحث فيه بعد قطع الاتصال، وأن يرغبوا في استعمالها مرة أخرى.</p></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <div class="brand"><span class="logo">◈</span><span>POCKET WORLD<small>YOUR WORLD. OFFLINE.</small></span></div>
+    <div><p>ملف تعريفي لمشروع قابل للتطوير.</p><p class="disclaimer">الأرقام والأسعار والخطة التجارية تقديرية وتحتاج إلى التحقق بالتجربة.</p></div>
+    <a class="btn btn-ghost" href="#home">العودة للأعلى ↑</a>
+  </div>
+</footer>
+
+<script>
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => {
+    const opened = mobileMenu.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', String(opened));
+    menuBtn.textContent = opened ? '✕' : '☰';
+  });
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      menuBtn.textContent = '☰';
+    });
+  });
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.08});
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
